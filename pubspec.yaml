@@ -50,6 +50,7 @@ dependencies:
   overlay_support:
   firebase_core:
   firebase_messaging:
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:

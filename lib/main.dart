@@ -9,6 +9,8 @@ import 'package:crm_client/util/RouteGenerator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import 'Chat/chat_screen.dart';
@@ -27,6 +29,9 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+
+
+
   log("Handling a background message: ${message.messageId}/n ${message.toMap().toString()}");
   PushNotification notification = PushNotification(
     title: message.notification?.title,
@@ -34,70 +39,73 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     dataTitle: message.data['title'],
     dataBody: message.data['body'],
   );
+
+  
   final _notificationInfo = notification;
-  showOverlayNotification(
-    (context) {
-      return Material(
-        // shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(10),
-        //     side: BorderSide(color: Colors.white, width: 0.3)),
-        // elevation: 1,
-        color: Colors.transparent,
-        child: Padding(
-          padding: EdgeInsets.all(10),
-          child: ListTile(
-            onTap: () async {
-              String id =
-                  await SharedPreferenceClass.getSharedData("contact_id");
-              Navigator.pushNamed(context, Chat_Screen.id,
-                  arguments: chatdata(
-                      myid: "client_" + id,
-                      friendid:
-                          "staff_${message.notification?.body!.split("_")[1].split("-").first.toString()}",
-                      friendname: "friendname"));
-            },
-            selected: true,
-            selectedTileColor: Colors.white,
-            selectedColor: Theme.of(context).primaryColor,
-            title: SizedBox(
-                width: MediaQuery.of(context).size.width - 50,
-                child: Text(
-                  _notificationInfo.title ?? 'CRM',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                  overflow: TextOverflow.ellipsis,
-                )),
-            subtitle: SizedBox(
-                width: MediaQuery.of(context).size.width - 50,
-                child: Text(
-                  _notificationInfo.body ?? '',
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                  overflow: TextOverflow.ellipsis,
-                )),
-            leading: Image.asset(
-              'assets/appLogo.png',
-              height: 50,
-              width: 50,
-            ),
-            trailing: IconButton(
-                onPressed: () {
-                  OverlaySupportEntry.of(context)?.dismiss();
-                },
-                icon: Icon(Icons.close)),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(
-                    color: Theme.of(context).primaryColor, width: 0.3)),
-          ),
-        ),
-      );
-    },
-    // Text(_notificationInfo!.title ?? 'CRM'),
-    // leading: NotificationBadge(totalNotifications: _totalNotifications),
-    // Text(_notificationInfo!.body ?? '-'),
-    context: navState.currentContext,
-    position: NotificationPosition.top,
-    duration: Duration(seconds: 4),
-  );
+  
+  // showOverlayNotification(
+  //   (context) {
+  //     return Material(
+  //       // shape: RoundedRectangleBorder(
+  //       //     borderRadius: BorderRadius.circular(10),
+  //       //     side: BorderSide(color: Colors.white, width: 0.3)),
+  //       // elevation: 1,
+  //       color: Colors.transparent,
+  //       child: Padding(
+  //         padding: EdgeInsets.all(10),
+  //         child: ListTile(
+  //           onTap: () async {
+  //             String id =
+  //                 await SharedPreferenceClass.getSharedData("contact_id");
+  //             Navigator.pushNamed(context, Chat_Screen.id,
+  //                 arguments: chatdata(
+  //                     myid: "client_" + id,
+  //                     friendid:
+  //                         "staff_${message.notification?.body!.split("_")[1].split("-").first.toString()}",
+  //                     friendname: "lbmsupport"));
+  //           },
+  //           selected: true,
+  //           selectedTileColor: Colors.white,
+  //           selectedColor: Theme.of(context).primaryColor,
+  //           title: SizedBox(
+  //               width: MediaQuery.of(context).size.width - 50,
+  //               child: Text(
+  //                 _notificationInfo.title ?? 'CRM',
+  //                 style: TextStyle(fontWeight: FontWeight.w700),
+  //                 overflow: TextOverflow.ellipsis,
+  //               )),
+  //           subtitle: SizedBox(
+  //               width: MediaQuery.of(context).size.width - 50,
+  //               child: Text(
+  //                 _notificationInfo.body ?? '',
+  //                 style: TextStyle(fontWeight: FontWeight.w600),
+  //                 overflow: TextOverflow.ellipsis,
+  //               )),
+  //           leading: Image.asset(
+  //             'assets/appLogo.png',
+  //             height: 50,
+  //             width: 50,
+  //           ),
+  //           trailing: IconButton(
+  //               onPressed: () {
+  //                 OverlaySupportEntry.of(context)?.dismiss();
+  //               },
+  //               icon: Icon(Icons.close)),
+  //           shape: RoundedRectangleBorder(
+  //               borderRadius: BorderRadius.circular(10),
+  //               side: BorderSide(
+  //                   color: Theme.of(context).primaryColor, width: 0.3)),
+  //         ),
+  //       ),
+  //     );
+  //   },
+  //   // Text(_notificationInfo!.title ?? 'CRM'),
+  //   // leading: NotificationBadge(totalNotifications: _totalNotifications),
+  //   // Text(_notificationInfo!.body ?? '-'),
+  //   context: navState.currentContext,
+  //   position: NotificationPosition.top,
+  //   duration: Duration(seconds: 4),
+  // );
 }
 
 Future<void> main() async {
@@ -123,7 +131,16 @@ class _MyAppState extends State<MyApp> {
     _messaging = FirebaseMessaging.instance;
 
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
+FirebaseMessaging.onBackgroundMessage((message) async {
+print(message.data.toString());
+        String id = await SharedPreferenceClass.getSharedData("contact_id");
+        Navigator.pushNamed(context, Chat_Screen.id,
+            arguments: chatdata(
+                myid: "client_" + id,
+                friendid:
+                    "staff_${message.notification?.body!.split("_")[1].split("-").first.toString()}",
+                friendname: "lbmsupport"));
+});
     NotificationSettings settings = await _messaging.requestPermission(
       alert: true,
       announcement: false,
@@ -189,7 +206,7 @@ class _MyAppState extends State<MyApp> {
                               myid: "client_" + id,
                               friendid:
                                   "staff_${message.notification?.body!.split("_")[1].split("-").first.toString()}",
-                              friendname: "friendname"));
+                              friendname: "lbmsupport"));
                     },
                     selected: true,
                     selectedTileColor: Colors.white,
@@ -276,13 +293,7 @@ class _MyAppState extends State<MyApp> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       {
-        String id = await SharedPreferenceClass.getSharedData("contact_id");
-        Navigator.pushNamed(context, Chat_Screen.id,
-            arguments: chatdata(
-                myid: "client_" + id,
-                friendid:
-                    "staff_${message.notification?.body!.split("_")[1].split("-").first.toString()}",
-                friendname: "friendname"));
+
       }
       setState(() {
         CommanClass.notifcationTapped = true;
