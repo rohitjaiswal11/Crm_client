@@ -24,3 +24,4 @@ class ApiClass {
   static String SEND_MESSAGE = "/crm/api/prchat/sendClienttoServerChat";
   static String UPDATE_READMESSAGE = "/crm/api/prchat/updateUnreadClient";
 }
+ 

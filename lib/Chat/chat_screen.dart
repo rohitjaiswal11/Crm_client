@@ -274,8 +274,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
       "reciever_id": widget.passdata.friendid.toString()
     };
     try {
-      var response = await LbmPlugin.APIMainClass(Base_Url_For_App,
-          ApiClass.OldChatList, paramDic, "Get", Api_Key_by_Admin);
+      var response = await LbmPlugin.APIMainClass(Base_Url_For_App, ApiClass.OldChatList, paramDic, "Get", Api_Key_by_Admin);
       var data = json.decode(response.body);
       //log(data.toString());
       if (data["status"] == 1) {

@@ -23,68 +23,68 @@ class BottomBarState extends State<BottomBar> {
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   checkNotification() async {
     if (CommanClass.notifcationTapped) {
-      PushNotification notification = PushNotification(
-        title: CommanClass.noticationMessage?.notification?.title,
-        body: CommanClass.noticationMessage?.notification?.body,
-        dataTitle: CommanClass.noticationMessage?.data['title'],
-        dataBody: CommanClass.noticationMessage?.data['body'],
-      );
+      // PushNotification notification = PushNotification(
+      //   title: CommanClass.noticationMessage?.notification?.title,
+      //   body: CommanClass.noticationMessage?.notification?.body,
+      //   dataTitle: CommanClass.noticationMessage?.data['title'],
+      //   dataBody: CommanClass.noticationMessage?.data['body'],
+      // );
 
-      final _notificationInfo = notification;
+      // final _notificationInfo = notification;
       ;
-      showOverlayNotification(
-        (context) {
-          return Material(
-            // shape: RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.circular(10),
-            //     side: BorderSide(color: Colors.white, width: 0.3)),
-            // elevation: 1,
-            color: Colors.transparent,
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: ListTile(
-                selected: true,
-                selectedTileColor: Colors.white,
-                selectedColor: Theme.of(context).primaryColor,
-                title: SizedBox(
-                    width: MediaQuery.of(context).size.width - 50,
-                    child: Text(
-                      _notificationInfo.title ?? 'CRM',
-                      style: TextStyle(fontWeight: FontWeight.w700),
-                      overflow: TextOverflow.ellipsis,
-                    )),
-                subtitle: SizedBox(
-                    width: MediaQuery.of(context).size.width - 50,
-                    child: Text(
-                      _notificationInfo.body ?? '',
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                      overflow: TextOverflow.ellipsis,
-                    )),
-                leading: Image.asset(
-                  'assets/appLogo.png',
-                  height: 50,
-                  width: 50,
-                ),
-                trailing: IconButton(
-                    onPressed: () {
-                      OverlaySupportEntry.of(context)?.dismiss();
-                    },
-                    icon: Icon(Icons.close)),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 0.3)),
-              ),
-            ),
-          );
-        },
-        // Text(_notificationInfo!.title ?? 'CRM'),
-        // leading: NotificationBadge(totalNotifications: _totalNotifications),
-        // Text(_notificationInfo!.body ?? '-'),
-        context: navState.currentContext,
-        position: NotificationPosition.top,
-        duration: Duration(seconds: 3),
-      );
+      // showOverlayNotification(
+      //   (context) {
+      //     return Material(
+      //       // shape: RoundedRectangleBorder(
+      //       //     borderRadius: BorderRadius.circular(10),
+      //       //     side: BorderSide(color: Colors.white, width: 0.3)),
+      //       // elevation: 1,
+      //       color: Colors.transparent,
+      //       child: Padding(
+      //         padding: EdgeInsets.all(10),
+      //         child: ListTile(
+      //           selected: true,
+      //           selectedTileColor: Colors.white,
+      //           selectedColor: Theme.of(context).primaryColor,
+      //           title: SizedBox(
+      //               width: MediaQuery.of(context).size.width - 50,
+      //               child: Text(
+      //                 _notificationInfo.title ?? 'CRM',
+      //                 style: TextStyle(fontWeight: FontWeight.w700),
+      //                 overflow: TextOverflow.ellipsis,
+      //               )),
+      //           subtitle: SizedBox(
+      //               width: MediaQuery.of(context).size.width - 50,
+      //               child: Text(
+      //                 _notificationInfo.body ?? '',
+      //                 style: TextStyle(fontWeight: FontWeight.w600),
+      //                 overflow: TextOverflow.ellipsis,
+      //               )),
+      //           leading: Image.asset(
+      //             'assets/appLogo.png',
+      //             height: 50,
+      //             width: 50,
+      //           ),
+      //           trailing: IconButton(
+      //               onPressed: () {
+      //                 OverlaySupportEntry.of(context)?.dismiss();
+      //               },
+      //               icon: Icon(Icons.close)),
+      //           shape: RoundedRectangleBorder(
+      //               borderRadius: BorderRadius.circular(10),
+      //               side: BorderSide(
+      //                   color: Theme.of(context).primaryColor, width: 0.3)),
+      //         ),
+      //       ),
+      //     );
+      //   },
+      //   // Text(_notificationInfo!.title ?? 'CRM'),
+      //   // leading: NotificationBadge(totalNotifications: _totalNotifications),
+      //   // Text(_notificationInfo!.body ?? '-'),
+      //   context: navState.currentContext,
+      //   position: NotificationPosition.top,
+      //   duration: Duration(seconds: 3),
+      // );
     }
   }
 
