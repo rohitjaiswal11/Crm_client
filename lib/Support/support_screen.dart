@@ -12,7 +12,9 @@ import 'package:crm_client/util/app_key.dart';
 import 'package:crm_client/util/constants.dart';
 import 'package:crm_client/util/storage_manger.dart';
 import 'package:flutter/material.dart';
-import 'package:lbm_plugin/lbm_plugin.dart';
+import '../../Lbm plugin/lbmplugin.dart';
+
+import '../Lbm plugin/lbmplugin.dart';
 
 class SupportScreen extends StatefulWidget {
   static const id = 'Support';

@@ -12,11 +12,11 @@ import 'package:crm_client/util/ToastClass.dart';
 import 'package:crm_client/util/constants.dart';
 import 'package:crm_client/util/storage_manger.dart';
 import 'package:flutter/material.dart';
-import 'package:lbm_plugin/lbm_plugin.dart';
+import '../Lbm plugin/lbmplugin.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
-class EditProfile extends StatefulWidget {
+class  EditProfile extends StatefulWidget {
   static const id = 'Editprofile';
   @override
   State<EditProfile> createState() => _EditProfileState();

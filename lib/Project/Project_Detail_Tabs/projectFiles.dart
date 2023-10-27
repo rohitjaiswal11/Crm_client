@@ -12,7 +12,7 @@ import 'package:crm_client/util/ToastClass.dart';
 import 'package:crm_client/util/constants.dart';
 import 'package:crm_client/util/storage_manger.dart';
 import 'package:flutter/material.dart';
-import 'package:lbm_plugin/lbm_plugin.dart';
+import '../../Lbm plugin/lbmplugin.dart';
 import 'package:http/http.dart' as http;
 
 class ProjectFiles extends StatefulWidget {

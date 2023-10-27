@@ -10,7 +10,7 @@ import 'package:crm_client/util/app_key.dart';
 import 'package:crm_client/util/constants.dart';
 import 'package:crm_client/util/storage_manger.dart';
 import 'package:flutter/material.dart';
-import 'package:lbm_plugin/lbm_plugin.dart';
+import '../Lbm plugin/lbmplugin.dart';
 
 class InvoicesScreen extends StatefulWidget {
   static const id = 'invocies';
@@ -204,7 +204,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
       child: Stack(
         children: [
           Container(
-            height: height * 0.10,
+            height: height * 0.12,
             margin: EdgeInsets.only(bottom: height * 0.015),
             padding: EdgeInsets.symmetric(
                 horizontal: width * 0.01, vertical: height * 0.005),

@@ -6,8 +6,7 @@ import 'package:crm_client/util/storage_manger.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:get/get.dart';
-import 'package:path/path.dart';
+
 
 import '../Dashboard/dashboard_screen.dart';
 
@@ -32,17 +31,19 @@ class NotificationHelper {
     );
     
 
-    await flutterLocalNotificationsPlugin.initialize(initializationsSettings,onDidReceiveNotificationResponse: (message) async {
-      var mess= message.payload;
-      print("message onTap=========="+mess.toString());
+    await flutterLocalNotificationsPlugin.initialize(initializationsSettings,onDidReceiveNotificationResponse: (title) async {
+      var mess= title.payload;
+      print("sender onTap==========+${mess!.split("-").first.toString()}");
+
+            print("sender onTap==========+${mess.split("-")[1].toString()}");
        String id = await SharedPreferenceClass.getSharedData("contact_id");
       Navigator.pushNamed(navState.currentState!.context, Chat_Screen.id,
           arguments: chatdata(
             myid: "client_" +id,
             friendid:
-                "staff_${mess!.split("_")[1].split("-").first.toString()}",
+             "staff_${mess.split("-").first.toString()}",
             friendname:
-                "${mess.split("_")[1].split("-")[1].split("--").toString().replaceAll("[", "").replaceAll("]", "")}",
+                "${mess.split("-")[1].toString().replaceAll("[", "").replaceAll("]", "")}",
           )
           );
     },);// android initialize settings
@@ -55,10 +56,13 @@ class NotificationHelper {
     /* await flutterLocalNotificationsPlugin.initialize(initializationsSettings, onSelectNotification: selectNotification);*/
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print(
-          "onMessage: ${message.notification?.body!.split("_")[1].split("-").toString()}");
+      // print(
+      //    "onMessage: ${message.notification?.body!.split("_")[1].split("-").toString()}");
 
       print('=========Complete message==========' + message.toMap().toString());
+
+
+      print('==========Senders name++++++++++++++++++  +  ${message.notification?.title!.split("-")[1].toString()}');
       NotificationHelper.showNotification(
           message, flutterLocalNotificationsPlugin, false);
     });
@@ -67,10 +71,10 @@ class NotificationHelper {
       Navigator.pushNamed(navState.currentState!.context, Chat_Screen.id,
           arguments: chatdata(
             myid: "client_" + id,
-            friendid:
-                "staff_${message.notification?.body!.split("_")[1].split("-").first.toString()}",
+             friendid:
+                 "staff_${message.notification?.title!.split("-").first.toString()}",
             friendname:
-                "${message.notification?.body!.split("_")[1].split("-")[1].split("--").toString().replaceAll("[", "").replaceAll("]", "")}",
+                "${message.notification?.title!.split("-")[1].toString()}",
           ));
 
       print(
@@ -93,15 +97,15 @@ class NotificationHelper {
       //title
         
       
-        "${message.notification?.body!.split("_")[1].split("-")[1].split("--").toString().replaceAll("[", "").replaceAll("]", "")}",
+        "${message.notification?.title!..toString().replaceAll("[", "").replaceAll("]", "")}",
       
       //message  
-      "${message.notification?.body!.split("message -")[1].split("bodyLocArgs").toString().replaceAll("[", "").replaceAll("]", "")}",
+      "${message.notification?.body!.toString().replaceAll("[", "").replaceAll("]", "")}",
 
 
-//'allmessage',
+//'alltitle',
 
-"${message.notification?.body!.toString()}",
+"${message.notification?.title!.toString()}",
 
 
         fln);
@@ -146,7 +150,7 @@ class NotificationHelper {
   }
 
   static Future<void> showBigTextNotification(
-   String title, String  body,String allmessage, FlutterLocalNotificationsPlugin fln) async {
+   String title, String  body,String alltitle, FlutterLocalNotificationsPlugin fln) async {
     BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
       body,
       htmlFormatBigText: true,
@@ -165,7 +169,7 @@ class NotificationHelper {
     );
     NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
-    await fln.show(0, title, body, platformChannelSpecifics, payload:allmessage ,);
+    await fln.show(0, title, body, platformChannelSpecifics, payload:alltitle ,);
   }
 
   // Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -185,6 +189,19 @@ class NotificationHelper {
 static Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     // Handle the background message here
     print(" ::::::::::::::::Handling a background message:::::::::::: ${message.toMap().toString()}");
+
+
+
+    String id = await SharedPreferenceClass.getSharedData("contact_id");
+      Navigator.pushNamed(navState.currentState!.context, Chat_Screen.id,
+          arguments: chatdata(
+            myid: "client_" +id,
+            friendid:
+            "staff_${message.notification?.title!.split("-").first.toString()}",
+            friendname:
+              "staff_${message.notification?.title!.split("-").first.toString()}",
+          )
+          );
 
     // Create a FlutterLocalNotificationsPlugin instance
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -212,7 +229,7 @@ static Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) as
         NotificationDetails(android: androidPlatformChannelSpecifics);
 
     // Extract custom notification data (modify as needed)
-    final String title = "${message.notification?.body!.split("_")[1].split("-")[1].split("--").toString().replaceAll("[", "").replaceAll("]", "")}";
+    final String title = "${message.notification?.title!.split("-")[1].toString()}";
     final String body =  "${message.notification?.body!.split("message -")[1].split("bodyLocArgs").toString().replaceAll("[", "").replaceAll("]", "")}";
 
     //Show the custom notification
@@ -221,7 +238,7 @@ static Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) as
       title, // Notification title
       body, // Notification body
       platformChannelSpecifics,
-      payload: null,
+      payload:null,
     );
   }
 

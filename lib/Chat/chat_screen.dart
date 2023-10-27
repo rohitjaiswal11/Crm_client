@@ -3,8 +3,9 @@ import 'dart:developer';
 
 import 'package:crm_client/Dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:lbm_plugin/lbm_plugin.dart';
 
+
+import '../Lbm plugin/lbmplugin.dart';
 import '../util/ApiClass.dart';
 import '../util/LicenseKey.dart';
 import '../util/ToastClass.dart';

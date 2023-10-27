@@ -142,12 +142,6 @@ FlutterLocalNotificationsPlugin flutterLocalPlugin=FlutterLocalNotificationsPlug
 
 
 
-  //await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>() ?.createNotificationChannel(channel);
-// FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-//  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-
    runApp(MyApp());
 }
 

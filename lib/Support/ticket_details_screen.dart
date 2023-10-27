@@ -14,7 +14,8 @@ import 'package:crm_client/util/storage_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:http/http.dart' as http;
-import 'package:lbm_plugin/lbm_plugin.dart';
+import '../../Lbm plugin/lbmplugin.dart';
+
 
 class TicketDetailScreen extends StatefulWidget {
   static const id = 'ticketDetail';

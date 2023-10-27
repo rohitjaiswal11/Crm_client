@@ -16,7 +16,7 @@ import 'package:crm_client/util/app_key.dart';
 import 'package:crm_client/util/constants.dart';
 import 'package:crm_client/util/storage_manger.dart';
 import 'package:flutter/material.dart';
-import 'package:lbm_plugin/lbm_plugin.dart';
+import '../Lbm plugin/lbmplugin.dart';
 
 import '../util/LicenseKey.dart';
 import '../util/ToastClass.dart';
@@ -700,9 +700,9 @@ class PassData {
 
 class chatdata {
   String myid;
-  String friendid;
+  String ?friendid;
   String friendname;
 
   chatdata(
-      {required this.myid, required this.friendid, required this.friendname});
+      {required this.myid,  this.friendid, required this.friendname});
 }

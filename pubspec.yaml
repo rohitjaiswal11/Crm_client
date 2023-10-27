@@ -37,7 +37,7 @@ dependencies:
   image_picker:
   shared_preferences:
   fluttertoast:
-  lbm_plugin:
+  #lbm_plugin:
   http:
   async:
   path:
